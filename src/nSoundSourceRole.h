@@ -1,0 +1,13 @@
+#ifndef NSOUNDSOURCEROLE_H
+#define NSOUNDSOURCEROLE_H
+
+enum  nSoundSourceRole
+{
+    SSR_MUSIC,
+    SSR_SFX,
+    SSR_AMBIENCE,
+    SSR_VOICE,
+    SSR_OTHER
+};
+
+#endif // NSOUNDSOURCEROLE_H
