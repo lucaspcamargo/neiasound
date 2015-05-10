@@ -10,7 +10,7 @@ It comes with a (very primitive) .wav file reader, and includes [stb_vorbis](htt
 
 All you need is to add the relevant source files into your project source lists.
 It is a good idea to cherry-pick only the nSoundStreamer implementations you actually use.
-The Wave and stb_vorbis streams are enough in most cases, so the only hard dependencies are OpenAL itself and Qt, libsndfile is optional.
+The Wave and stb_vorbis streams are enough in most cases, so the only hard dependencies are OpenAL itself and Qt. libsndfile is optional, but it's there if you need flac or one of the many formats it supports.
 
 Do note that this a Qt library, and the sources need to go through moc when included directly.
 
