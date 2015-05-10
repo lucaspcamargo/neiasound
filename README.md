@@ -6,6 +6,8 @@ neiasound is a Qt-style OpenAL wrapper for games. Not yet complete but already v
 It is a very nice, convenient api that can be plugged directly into your main loop.
 It comes with a (very primitive) .wav file reader, and includes [stb_vorbis](http://nothings.org/stb_vorbis/) directly in the source tree. Also supports [libsndfile](http://www.mega-nerd.com/libsndfile/).
 
+There is also support for streaming dynamic playlists with intros and seamless looping.
+
 ### How do I get set up? ###
 
 All you need is to add the relevant source files into your project source lists.
