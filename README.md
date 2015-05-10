@@ -13,6 +13,7 @@ There is also support for streaming dynamic playlists with intros and seamless l
 All you need is to add the relevant source files into your project source lists.
 It is a good idea to cherry-pick only the nSoundStreamer implementations you actually use.
 The Wave and stb_vorbis streams are enough in most cases, so the only hard dependencies are OpenAL itself and Qt. libsndfile is optional, but it's there if you need flac or one of the many formats it supports.
+On Android projects, it is compatible with the standard OpenAL Soft port, and OpenAL-MOB. I recommend OpenAL-MOB for a better experience and reduced latency. If you disable HRTFs, I suspect performance is the same or better.
 
 Do note that this a Qt library, and the sources need to go through moc when included directly.
 
