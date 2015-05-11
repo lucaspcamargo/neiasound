@@ -1,0 +1,12 @@
+#ifndef NEIASOUND_GLOBAL_H
+#define NEIASOUND_GLOBAL_H
+
+#include <QtCore/qglobal.h>
+
+#if defined(NEIASOUND_LIBRARY)
+#  define NEIASOUNDSHARED_EXPORT Q_DECL_EXPORT
+#else
+#  define NEIASOUNDSHARED_EXPORT Q_DECL_IMPORT
+#endif
+
+#endif // NEIASOUND_GLOBAL_H
