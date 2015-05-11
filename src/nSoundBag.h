@@ -26,11 +26,12 @@
 #ifndef NSOUNDBAG_H
 #define NSOUNDBAG_H
 
+#include "neiasound_global.h"
 #include <QObject>
 #include "nSoundFormat.h"
 
 
-class nSoundBag : public QObject
+class NEIASOUNDSHARED_EXPORT nSoundBag : public QObject
 {
     Q_OBJECT
     Q_ENUMS(nSoundFormat)

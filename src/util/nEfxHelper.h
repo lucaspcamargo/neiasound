@@ -26,11 +26,12 @@
 #ifndef NEFXHELPER_H
 #define NEFXHELPER_H
 
+#include "../neiasound_global.h"
 #include "AL/al.h"
 #include "AL/alc.h"
 #include "AL/alext.h"
 
-class nEfxHelper
+class NEIASOUNDSHARED_EXPORT nEfxHelper
 {
 
 public:

@@ -89,6 +89,10 @@ int nSoundBuffer::openalFormat(nSoundFormat format)
 
     case SF_16BIT_STEREO:
         return AL_FORMAT_STEREO16;
+
+    case SF_WAVE_HEADER:
+    case SF_UNDEFINED:
+        return -1;
     }
 
     return -1;

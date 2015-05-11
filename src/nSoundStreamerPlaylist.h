@@ -26,18 +26,19 @@
 #ifndef NSOUNDSTREAMERPLAYLIST_H
 #define NSOUNDSTREAMERPLAYLIST_H
 
+#include "neiasound_global.h"
 #include <QObject>
 #include <QList>
 
 class nSoundStream;
 
-typedef struct _nSoundStreamerItem
+typedef struct NEIASOUNDSHARED_EXPORT _nSoundStreamerItem
 {
-    nSoundStream * m_soundStream = 0;
+    nSoundStream * m_soundStream;
     bool m_loop;
 } nSoundStreamerItem;
 
-class nSoundStreamerPlaylist : public QObject
+class NEIASOUNDSHARED_EXPORT nSoundStreamerPlaylist : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(bool loopPlaylist READ loopPlaylist WRITE setLoopPlaylist) 
@@ -58,8 +59,8 @@ public slots:
 
 private:
     friend class nSoundStreamer;
-    QList<nSoundStreamerItem> m_items;
     bool m_loopPlaylist;
+    QList<nSoundStreamerItem> m_items;
 
 };
 

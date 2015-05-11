@@ -71,11 +71,8 @@ nSoundSystem::nSoundSystem(QObject *parent) :
 #endif
 #endif
 
-    qDebug("nSoundSystem initialized successfully.");
-
     alcGetIntegerv(m_device, ALC_MAX_AUXILIARY_SENDS, 1, &m_numSends);
-    qDebug(QString("OpenAL device supports %1 auxiliary sends per source.").arg(m_numSends).toLocal8Bit());
-
+    
     nSoundSource::_resetRoleGains();
     QSettings settings;
     settings.beginGroup("Audio");

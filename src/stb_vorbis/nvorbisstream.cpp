@@ -55,16 +55,26 @@
 
 
 #define STB_VORBIS_MAX_CHANNELS     2
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wsign-compare"
+#pragma GCC diagnostic ignored "-Wtype-limits"
+#pragma GCC diagnostic ignored "-Wparentheses"
+#pragma GCC diagnostic ignored "-Wunused-parameter"
+#pragma GCC diagnostic ignored "-Wunused-value"
+#pragma GCC diagnostic ignored "-Wunused-variable"
+#pragma GCC diagnostic ignored "-Wunused-function"
+#pragma GCC diagnostic ignored "-Wunused-but-set-variable"
 #include "stb_vorbis.c"
+#pragma GCC diagnostic pop
 
 
 nVorbisStream::nVorbisStream(QIODevice * dev, QObject *parent) : nSoundStream(parent),
     _device(dev),
-    m_error(false),
     _totalFrames(0),
     _channels(0),
     _frequency(0),
-    _format(SF_16BIT_STEREO)
+    _format(SF_16BIT_STEREO),
+    m_error(false)
 {
     _vorbis = 0;
 
@@ -85,10 +95,10 @@ nVorbisStream::nVorbisStream(QIODevice * dev, QObject *parent) : nSoundStream(pa
         _vorbis = stb_vorbis_open_memory((unsigned char*)_buf, _bufSize, &err,  0 );
         if(!_vorbis || err != VORBIS__no_error)
         {
-            qDebug(QStringLiteral("[nVorbisStream] Error initializing vorbis stream: %1").arg(err).toLocal8Bit());
+            qDebug("[nVorbisStream] Error initializing vorbis stream");
         }
 
-        stb_vorbis_info info = stb_vorbis_get_info(_vorbis);
+        //stb_vorbis_info info = stb_vorbis_get_info(_vorbis);
 
         _totalFrames = stb_vorbis_stream_length_in_samples(_vorbis);
         _channels = _vorbis->channels;

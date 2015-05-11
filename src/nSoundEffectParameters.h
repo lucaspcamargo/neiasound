@@ -26,10 +26,11 @@
 #ifndef NSOUNDEFFECTPARAMETERS_H
 #define NSOUNDEFFECTPARAMETERS_H
 
+#include "neiasound_global.h"
 #include <QObject>
 #include <QVariantMap>
 
-enum nSoundEffectType
+enum NEIASOUNDSHARED_EXPORT nSoundEffectType
 {
     SET_NONE,
     SET_REVERB,
@@ -45,7 +46,7 @@ enum nSoundEffectType
 
 quint32 nSoundEffectType_toOpenalType();
 
-class nSoundEffectParameters : public QObject
+class NEIASOUNDSHARED_EXPORT nSoundEffectParameters : public QObject
 {
     Q_OBJECT
     Q_ENUMS(nSoundEffectType)

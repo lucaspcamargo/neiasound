@@ -26,6 +26,7 @@
 #ifndef NSOUNDSYSTEM_H
 #define NSOUNDSYSTEM_H
 
+#include "neiasound_global.h"
 #include <QObject>
 #include <QHash>
 #include "nSoundSourceRole.h"
@@ -43,7 +44,7 @@ class nSoundListener;
 class nSoundStreamer;
 class nSoundStreamerPlaylist;
 
-class nSoundSystem : public QObject
+class NEIASOUNDSHARED_EXPORT nSoundSystem : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(int supportedAuxiliarySends READ supportedAuxiliarySends)

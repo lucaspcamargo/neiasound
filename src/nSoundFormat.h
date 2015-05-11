@@ -23,12 +23,14 @@
 // ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
 // THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
 #ifndef NSOUNDFORMAT_H
 #define NSOUNDFORMAT_H
 
+#include "neiasound_global.h"
 #include <QtGlobal>
 
-enum nSoundFormat
+enum NEIASOUNDSHARED_EXPORT nSoundFormat
 {
     SF_UNDEFINED,
     SF_8BIT_MONO,
@@ -38,7 +40,7 @@ enum nSoundFormat
     SF_WAVE_HEADER
 };
 
-inline quint64 nSoundFormat_getFramesize(nSoundFormat sf)
+inline quint64 NEIASOUNDSHARED_EXPORT nSoundFormat_getFramesize(nSoundFormat sf)
 {
     switch(sf)
     {
@@ -63,7 +65,7 @@ inline quint64 nSoundFormat_getFramesize(nSoundFormat sf)
 }
 
 
-inline int nSoundFormat_getChannelCount(nSoundFormat sf)
+inline int NEIASOUNDSHARED_EXPORT nSoundFormat_getChannelCount(nSoundFormat sf)
 {
     switch(sf)
     {

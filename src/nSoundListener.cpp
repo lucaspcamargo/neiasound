@@ -64,6 +64,8 @@ void nSoundListener::cameraDestroyed()
 
 void nSoundListener::update(qreal frameTime)
 {
+    Q_UNUSED(frameTime)
+
 #ifdef NEIA
     if(m_updating && m_camera)
     {

@@ -26,12 +26,14 @@
 #ifndef NSOUNDSTREAM_H
 #define NSOUNDSTREAM_H
 
+
+#include "neiasound_global.h"
 #include <QObject>
 #include "nSoundFormat.h"
 
 class nSoundBag;
 
-class nSoundStream : public QObject
+class NEIASOUNDSHARED_EXPORT nSoundStream : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(int channels READ channels)

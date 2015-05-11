@@ -26,6 +26,7 @@
 #ifndef NSOUNDBUFFER_H
 #define NSOUNDBUFFER_H
 
+#include "neiasound_global.h"
 #include <QObject>
 #include "nSoundFormat.h"
 
@@ -33,7 +34,7 @@ class nSoundSystem;
 class nSoundBag;
 class nSoundStream;
 
-class nSoundBuffer : public QObject
+class NEIASOUNDSHARED_EXPORT nSoundBuffer : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(unsigned int openalHandle READ openalHandle)

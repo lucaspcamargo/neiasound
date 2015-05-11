@@ -51,6 +51,8 @@ QVariant nSoundEffectParameters::parameter(QString name)
 
 void nSoundEffectParameters::setParameter(QString name, QVariant param)
 {
+    Q_UNUSED(name)
+    Q_UNUSED(param)
 
 }
 

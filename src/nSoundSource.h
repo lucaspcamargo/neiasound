@@ -26,6 +26,7 @@
 #ifndef NSOUNDSOURCE_H
 #define NSOUNDSOURCE_H
 
+#include "neiasound_global.h"
 #include <QObject>
 #include <QVector3D>
 #include "nSoundSourceRole.h"
@@ -34,7 +35,7 @@ class nSoundSystem;
 class nSoundBuffer;
 
 
-class nSoundSource : public QObject
+class NEIASOUNDSHARED_EXPORT nSoundSource : public QObject
 {
     Q_OBJECT
     Q_ENUMS(nSoundSourceState)

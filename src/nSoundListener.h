@@ -26,13 +26,14 @@
 #ifndef NSOUNDLISTENER_H
 #define NSOUNDLISTENER_H
 
+#include "neiasound_global.h"
 #include <QObject>
 #include <QVector3D>
 
 class nSceneCamera;
 class nSoundSystem;
 
-class nSoundListener : public QObject
+class NEIASOUNDSHARED_EXPORT nSoundListener : public QObject
 {
     Q_OBJECT
 #ifdef NEIA

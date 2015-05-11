@@ -126,6 +126,7 @@ nSoundStreamer::~nSoundStreamer()
 
 void nSoundStreamer::update(float frameTime)
 {
+    Q_UNUSED(frameTime)
 
     if(!m_playlist->itemCount()) {
         return;
@@ -193,8 +194,10 @@ bool nSoundStreamer::fillAndQueueBuffer(unsigned int buffer)
             {
                 m_currentStream++;
                 if(m_currentStream==m_playlist->m_items.size())
+                {
                     if(m_playlist->loopPlaylist())m_currentStream = 0;
                     else keep = false;
+                }
             }
         }
     }while ( keep && (readFrames < frames));
@@ -226,6 +229,9 @@ int nSoundStreamer::openalFormat(nSoundFormat format)
 
     case SF_16BIT_STEREO:
         return AL_FORMAT_STEREO16;
+    case SF_WAVE_HEADER:
+    case SF_UNDEFINED:
+        return -1;
     }
 
     return -1;
@@ -250,6 +256,8 @@ void nSoundStreamerUpdater::setup()
 
 void nSoundStreamerUpdater::timerEvent(QTimerEvent * evt)
 {
+    Q_UNUSED(evt)
+
     if(_keepGoing)
         _streamer->update(0);
     else {

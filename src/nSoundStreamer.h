@@ -26,6 +26,7 @@
 #ifndef NSOUNDSTREAMER_H
 #define NSOUNDSTREAMER_H
 
+#include "neiasound_global.h"
 #include <QObject>
 #include <QThread>
 #include <QMutex>
@@ -41,7 +42,7 @@ class nSoundStreamerPlaylist;
 
 class nSoundStreamerUpdater;
 
-class nSoundStreamer : public QObject
+class NEIASOUNDSHARED_EXPORT nSoundStreamer : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(nSoundSource* source READ source WRITE setSource NOTIFY sourceChanged)

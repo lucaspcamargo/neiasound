@@ -59,7 +59,7 @@ nWaveStream::nWaveStream(QIODevice *device, nSoundFormat format, int frequency, 
 
 nSoundBag *nWaveStream::createSoundBag(QObject *parent)
 {
-    nSoundBag * bag = new nSoundBag( _format, _totalFrames, _frequency );
+    nSoundBag * bag = new nSoundBag( _format, _totalFrames, _frequency, parent );
     read(bag->m_data, _totalFrames);
     return bag;
 }

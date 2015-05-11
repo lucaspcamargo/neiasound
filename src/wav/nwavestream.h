@@ -23,14 +23,16 @@
 // ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
 // THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
 #ifndef DWSOUNDRAWSTREAM_H
 #define DWSOUNDRAWSTREAM_H
 
+#include "../neiasound_global.h"
 #include "../nSoundStream.h"
 
 class QIODevice;
 
-class nWaveStream : public nSoundStream
+class NEIASOUNDSHARED_EXPORT nWaveStream : public nSoundStream
 {
     Q_OBJECT
 public:
@@ -55,11 +57,11 @@ public slots:
 private:
 
     QIODevice * _device;
+    nSoundFormat _format;
+    int _frequency;
     quint64 _totalFrames;
     int _channels;
-    int _frequency;
     int _deviceOffset;
-    nSoundFormat _format;
 
 };
 

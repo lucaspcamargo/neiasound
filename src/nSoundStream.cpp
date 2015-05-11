@@ -33,6 +33,7 @@ nSoundStream::nSoundStream(QObject *parent) :
 
 nSoundBag *nSoundStream::createSoundBag(QObject *parent)
 {
+    Q_UNUSED(parent)
     nSoundBag * bag = new nSoundBag( format(), frames(), frequency() );
     read(bag->m_data, frames());
     return bag;

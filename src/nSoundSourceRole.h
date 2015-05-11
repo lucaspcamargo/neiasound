@@ -26,7 +26,10 @@
 #ifndef NSOUNDSOURCEROLE_H
 #define NSOUNDSOURCEROLE_H
 
-enum  nSoundSourceRole
+
+#include "neiasound_global.h"
+
+enum NEIASOUNDSHARED_EXPORT nSoundSourceRole
 {
     SSR_MUSIC,
     SSR_SFX,
