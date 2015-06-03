@@ -35,6 +35,7 @@ class nSoundBag;
 
 class nSndfileStream : public nSoundStream
 {
+    Q_OBJECT
 public:
     nSndfileStream(QString filename, QObject * parent = 0);
     nSndfileStream(QIODevice * stream, QObject * parent = 0, bool ownsDevice = true);

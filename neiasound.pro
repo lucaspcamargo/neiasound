@@ -32,7 +32,7 @@ TARGET = neiasound
 TEMPLATE = lib
 
 DEFINES += NEIASOUND_LIBRARY
-CONFIG += USE_STB_VORBIS USE_WAVE_STREAM USE_SNDFILE
+CONFIG += NEIASOUND_USE_STB_VORBIS NEIASOUND_USE_WAVE_STREAM NEIASOUND_USE_SNDFILE
 
 SOURCES += \
     src/nSoundBag.cpp \
@@ -62,22 +62,31 @@ HEADERS += \
     src/util/efx-util.h \
     src/util/nEfxHelper.h
 
-CONFIG(USE_STB_VORBIS) {
+unix: CONFIG += link_pkgconfig
+
+CONFIG(NEIASOUND_USE_STB_VORBIS) {
     SOURCES += src/stb_vorbis/nvorbisstream.cpp
     HEADERS += src/stb_vorbis/nvorbisstream.h
 }
 
-CONFIG(USE_WAVE_STREAM) {
+CONFIG(NEIASOUND_USE_WAVE_STREAM) {
     SOURCES += src/wav/nwavestream.cpp
     HEADERS += src/wav/nwavestream.h
 }
 
-CONFIG(USE_SNDFILE) {
+CONFIG(NEIASOUND_USE_SNDFILE) {
     SOURCES += src/sndfile/nsndfilestream.cpp
     HEADERS += src/sndfile/nsndfilestream.h
+
+    unix: PKGCONFIG += sndfile
+    !unix {
+        INCLUDEPATH += $$LIBSNDFILE_INCLUDEPATH
+        LIBS += -L$$LIBSDFILE_LIBPATH -l$$LIBSNDFILE_LIB
+    }
 }
 
 unix {
     target.path = /usr/local/lib
     INSTALLS += target
 }
+
