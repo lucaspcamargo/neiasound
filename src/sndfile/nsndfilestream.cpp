@@ -24,7 +24,7 @@
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
 // THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-#include "nSndfileStream.h"
+#include "nsndfilestream.h"
 #include "sndfile.h"
 #include <cstdio>
 #include <QDataStream>
@@ -68,6 +68,9 @@ sf_count_t nSndfileStream_vio_read(void * ptr, sf_count_t count, void * userData
 
 sf_count_t nSndfileStream_vio_write(const void * ptr, sf_count_t count, void * userData)
 {
+    Q_UNUSED(ptr)
+    Q_UNUSED(count)
+    Q_UNUSED(userData)
     // WRITING UNSUPPORTED
     return -1;
 }
@@ -137,7 +140,7 @@ nSndfileStream::~nSndfileStream()
     if(m_virtualio) delete ((SF_VIRTUAL_IO*)m_virtualio);
 
     sf_close((SNDFILE*)m_sndfile);
-    delete m_sndinfo;
+    delete ((SF_INFO*)m_sndinfo);
 
     if(m_ownsDevice && m_iodevice)
         delete m_iodevice;
@@ -173,8 +176,10 @@ nSoundFormat nSndfileStream::format()
 
 bool nSndfileStream::suggestStreaming()
 {
-    if( ((m_info_format & SF_FORMAT_VORBIS) != 0) || (m_info_frames > m_info_samplerate*5))
+    if( ((m_info_format & SF_FORMAT_VORBIS) != 0) || (m_info_frames > ((quint64)m_info_samplerate)*5))
         return true; //suggest stream if ogg vorbis or if larger than 5 seconds
+    else
+        return false;
 }
 
 
