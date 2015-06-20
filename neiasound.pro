@@ -30,6 +30,7 @@ QT += gui
 
 TARGET = neiasound
 TEMPLATE = lib
+VERSION = 0.1
 
 DEFINES += NEIASOUND_LIBRARY
 CONFIG += NEIASOUND_USE_STB_VORBIS NEIASOUND_USE_WAVE_STREAM NEIASOUND_USE_SNDFILE
@@ -85,8 +86,21 @@ CONFIG(NEIASOUND_USE_SNDFILE) {
     }
 }
 
-unix {
-    target.path = /usr/local/lib
-    INSTALLS += target
-}
 
+unix {
+    target.path = /usr/lib
+    INSTALLS += target
+
+    header_files.files = $$HEADERS
+    header_files.path = /usr/include/neiasound
+    INSTALLS += header_files
+
+    CONFIG += create_pc create_prl no_install_prl
+
+    QMAKE_PKGCONFIG_NAME = neiasound
+    QMAKE_PKGCONFIG_DESCRIPTION = Qt-like wrapper and utilities for OpenAL
+    QMAKE_PKGCONFIG_PREFIX = $$INSTALLBASE
+    QMAKE_PKGCONFIG_LIBDIR = $$target.path
+    QMAKE_PKGCONFIG_INCDIR = $$header_files.path
+    QMAKE_PKGCONFIG_VERSION = $$VERSION
+}
