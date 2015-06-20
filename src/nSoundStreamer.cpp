@@ -50,7 +50,7 @@ nSoundStreamer::nSoundStreamer(QString name, nSoundSource * source, nSoundStream
     int sourceType;
     alGetSourcei(source->openalHandle(), AL_SOURCE_TYPE, &sourceType);
     if(sourceType == AL_STATIC)
-        throw QString("nSoundStreamer::nSoundStreamer(...): Tried to create stream \"")+name+("\" to an AL_STATIC source.");
+        qWarning("nSoundStreamer::nSoundStreamer(...): Tried to create stream to an AL_STATIC source.");
     m_source = source;
 
     // create OpenAL buffers
@@ -61,7 +61,7 @@ nSoundStreamer::nSoundStreamer(QString name, nSoundSource * source, nSoundStream
     m_buffer1 = buffers[1];
     m_buffer2 = buffers[2];
     if(alGetError()!=AL_NO_ERROR)
-        throw QString("nSoundStreamer::nSoundStreamer(...): Failed to create streaming buffers for \"")+name+QString("\".");
+        qWarning("nSoundStreamer::nSoundStreamer(...): Failed to create streaming buffers");
 
 
     //reserve buffer memory
@@ -147,7 +147,7 @@ void nSoundStreamer::update(float frameTime)
             unsigned int buffer;
             alSourceUnqueueBuffers(sourceHandle, 1, &buffer);
             if(alGetError()!=AL_NO_ERROR)
-                throw QString("nSoundStreamer::update(...): Failed to unqueue buffer.");
+                qWarning("nSoundStreamer::update(...): Failed to unqueue buffer.");
 
             if(m_keepStreaming) m_keepStreaming = fillAndQueueBuffer(buffer);
         }
@@ -205,11 +205,11 @@ bool nSoundStreamer::fillAndQueueBuffer(unsigned int buffer)
     alGetError();
     alBufferData(buffer, openalFormat(m_bag->m_format), m_bag->m_data, readFrames*byteFactor, m_bag->m_frequency);
     if(alGetError()!=AL_NO_ERROR)
-        throw QString("nSoundStreamer::fillAndQueueBuffer(...): Failed to refill buffer.");
+        qWarning("nSoundStreamer::fillAndQueueBuffer(...): Failed to refill buffer.");
 
     alSourceQueueBuffers(m_source->openalHandle(), 1, &buffer);
     if(alGetError()!=AL_NO_ERROR)
-        throw QString("nSoundStreamer::fillAndQueueBuffer(...): Failed to queue buffer.");
+        qWarning("nSoundStreamer::fillAndQueueBuffer(...): Failed to queue buffer.");
 
     return keep;
 }

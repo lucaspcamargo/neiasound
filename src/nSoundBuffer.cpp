@@ -43,7 +43,7 @@ nSoundBuffer::nSoundBuffer(QString name, nSoundSystem * parent) :
     ALenum error = alGetError();
     if(error!=AL_NO_ERROR)
     {
-        throw QString("nSoundBuffer: alGenBuffers() failed.");
+        qWarning("nSoundBuffer: alGenBuffers() failed.");
     }
 }
 
@@ -54,7 +54,7 @@ nSoundBuffer::~nSoundBuffer()
     alDeleteBuffers(1, &m_handle);    
 
     if(alGetError()!=AL_NO_ERROR)
-        throw QString("nSoundBuffer::~nSoundBuffer(): Error destroying openal buffer.");
+        qWarning("nSoundBuffer::~nSoundBuffer(): Error destroying openal buffer.");
 }
 
 void nSoundBuffer::setData(nSoundBag * bag)
@@ -64,7 +64,7 @@ void nSoundBuffer::setData(nSoundBag * bag)
     alBufferData(m_handle, openalFormat(bag->m_format), bag->m_data, bag->m_data_size, bag->m_frequency);
 
     if(alGetError()!=AL_NO_ERROR)
-        throw QString("nSoundBuffer::setData(): Error loading buffer data.");
+        qWarning("nSoundBuffer::setData(): Error loading buffer data.");
 }
 
 void nSoundBuffer::setData(nSoundStream * stream)

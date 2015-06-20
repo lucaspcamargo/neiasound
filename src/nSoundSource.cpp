@@ -50,7 +50,7 @@ nSoundSource::nSoundSource(QString name, nSoundSourceRole role, nSoundSystem * p
     ALenum error = alGetError();
     if(error!=AL_NO_ERROR)
     {
-        throw QString("nSoundSource: alGenSources() failed.");
+        qWarning("nSoundSource: alGenSources() failed.");
     }
 
     alSourcef(m_handle, AL_GAIN, m_gainMirror);
@@ -58,7 +58,7 @@ nSoundSource::nSoundSource(QString name, nSoundSourceRole role, nSoundSystem * p
     alSource3f(m_handle, AL_VELOCITY, 0.0f ,0.0f ,0.0f);
     alSource3f(m_handle, AL_DIRECTION, 0.0f, 0.0f, 0.0f);
     if(error!=AL_NO_ERROR)
-        throw QString("nSoundSource: Setting of source properties failed.");
+        qWarning("nSoundSource: Setting of source properties failed.");
 
 }
 
@@ -216,14 +216,13 @@ void nSoundSource::attachBuffer(nSoundBuffer * buffer)
     ALint sourceType;
     alGetSourcei(m_handle, AL_SOURCE_TYPE, &sourceType);
     if(sourceType == AL_STREAMING)
-        throw QString("nSoundSource: Tried to play a single buffer on a streaming source.");
+        qWarning("nSoundSource: Tried to play a single buffer on a streaming source.");
 
     alSourcei(m_handle, AL_BUFFER, buffer->openalHandle());
 
     ALenum err = alGetError();
     if(err!=AL_NO_ERROR)
-        throw QString("nSoundSource: failed to bind buffer \"")+buffer->objectName()+
-                QString("\" to source \"")+objectName()+QString("\".");
+        qWarning("nSoundSource: failed to bind buffer to source");
 }
 
 void nSoundSource::play()
@@ -231,7 +230,7 @@ void nSoundSource::play()
     alGetError();
     alSourcePlay(m_handle);
     if(alGetError()!=AL_NO_ERROR)
-        throw QString("nSoundSource: Failed to play source.");
+        qWarning("nSoundSource: Failed to play source.");
 }
 
 void nSoundSource::pause()
@@ -239,7 +238,7 @@ void nSoundSource::pause()
     alGetError();
     alSourcePause(m_handle);
     if(alGetError()!=AL_NO_ERROR)
-        throw QString("nSoundSource: Failed to pause source.");
+        qWarning("nSoundSource: Failed to pause source.");
 }
 
 void nSoundSource::stop()
@@ -247,7 +246,7 @@ void nSoundSource::stop()
     alGetError();
     alSourceStop(m_handle);
     if(alGetError()!=AL_NO_ERROR)
-        throw QString("nSoundSource: Failed to stop source.");
+        qWarning("nSoundSource: Failed to stop source.");
 }
 
 void nSoundSource::rewind()
@@ -255,7 +254,7 @@ void nSoundSource::rewind()
     alGetError();
     alSourceRewind(m_handle);
     if(alGetError()!=AL_NO_ERROR)
-        throw QString("nSoundSource: Failed to rewind source.");
+        qWarning("nSoundSource: Failed to rewind source.");
 }
 
 // GAIN CFG SUPPORT
