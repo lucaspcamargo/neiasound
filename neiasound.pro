@@ -91,9 +91,9 @@ unix {
     target.path = /usr/lib
     INSTALLS += target
 
-    header_files.files = $$HEADERS
-    header_files.path = /usr/include/neiasound
-    INSTALLS += header_files
+    INSTALL_PREFIX = /usr/include/neiasound
+    INSTALL_HEADERS = $$HEADERS
+    include(headerinstall.pri)
 
     CONFIG += create_pc create_prl no_install_prl
 
@@ -101,6 +101,10 @@ unix {
     QMAKE_PKGCONFIG_DESCRIPTION = Qt-like wrapper and utilities for OpenAL
     QMAKE_PKGCONFIG_PREFIX = $$INSTALLBASE
     QMAKE_PKGCONFIG_LIBDIR = $$target.path
-    QMAKE_PKGCONFIG_INCDIR = $$header_files.path
+    QMAKE_PKGCONFIG_INCDIR = $$INSTALL_PREFIX
     QMAKE_PKGCONFIG_VERSION = $$VERSION
 }
+
+DISTFILES += \
+    examples/use_neiasound.pri \
+    headerinstall.pri
