@@ -33,10 +33,12 @@
 #include <AL/al.h>
 #include <AL/alc.h>
 #include <AL/alext.h>
+#include <AL/efx.h>
 
 #include "util/nEfxHelper.h"
 #include <QSettings>
 #include <QUuid>
+#include <QDebug>
 
 nSoundSystem::nSoundSystem(QObject *parent) :
     QObject(parent), m_success(false)
@@ -48,12 +50,12 @@ nSoundSystem::nSoundSystem(QObject *parent) :
 
     m_device = alcOpenDevice(0); //default device
     if(!m_device)
-        throw QString("Error creating OpenAL device.");
+        qWarning("Error creating OpenAL device.");
 
-    int attributes[] = {ALC_FREQUENCY, 44100, 0};
+    int attributes[] = {ALC_FREQUENCY, NEIASOUND_FREQ, 0};
     m_context = alcCreateContext(m_device, attributes);
     if(!m_context)
-        throw QString("Error creating OpenAL context.");
+        qWarning("Error creating OpenAL context.");
 
     alcMakeContextCurrent(m_context);
     if( alGetError()!=AL_NO_ERROR)
@@ -79,6 +81,16 @@ nSoundSystem::nSoundSystem(QObject *parent) :
     setMasterGain(settings.value("MasterGain", 100).toFloat()/100.0f);
     settings.endGroup();
 
+
+    int efxMaj, efxMin;
+    alcGetIntegerv(m_device, ALC_EFX_MAJOR_VERSION, 1, &efxMaj);
+    alcGetIntegerv(m_device, ALC_EFX_MINOR_VERSION, 1, &efxMin);
+
+    qDebug("nSoundSystem::nSoundSystem(): initialized successfully");
+    qDebug() << QStringLiteral("EFX OpenAL Extension version %1.%2").arg(efxMaj).arg(efxMin);
+
+    nEfxHelper::initialize(m_device);
+
 }
 
 nSoundSystem::~nSoundSystem()
@@ -90,17 +102,17 @@ nSoundSystem::~nSoundSystem()
 
     foreach(nSoundStreamer * streamer, streamers)
     {
-        destroyStreamer(streamer);
+        delete (streamer);
     }
 
     foreach(nSoundSource * source, sources)
     {
-        destroySource(source);
+        delete (source);
     }
 
     foreach(nSoundBuffer * buffer, buffers)
     {
-        destroyBuffer(buffer);
+        delete (buffer);
     }
 
 

@@ -99,5 +99,5 @@ void nSoundListener::updateManual(QVector3D pos, QVector3D dir, QVector3D up, QV
     alListener3f(AL_VELOCITY, vel[0], vel[1], vel[2]);
 
     if(alGetError()!=AL_NO_ERROR)
-        throw QString("nSoundListener: Failed to update listener transformations.");
+        qWarning("nSoundListener: Failed to update listener transformations.");
 }

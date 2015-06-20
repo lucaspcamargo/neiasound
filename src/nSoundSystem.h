@@ -32,6 +32,13 @@
 #include "nSoundSourceRole.h"
 #include "nSoundFormat.h"
 
+
+#ifdef ANDROID
+#define NEIASOUND_FREQ 22050
+#else
+#define NEIASOUND_FREQ 48000
+#endif
+
 // *sigh* ugly but necessary
 struct ALCcontext_struct;
 struct ALCdevice_struct;
