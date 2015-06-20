@@ -29,7 +29,7 @@ Do note that this a Qt library, and the sources need to go through moc when incl
 
 ## FAQ ##
 
-*Q:* Does it support MP3? Are there plans for doing so?  
+*Q:* Does it support MP3? Are there plans for doing so?
 A: No and no. MP3 is a proprietary format and the free libraries that decode it fall into a legal grey-area.
 This is the same reason why libsndfile does not directly support it.
 As an alternative, the OGG Vorbis format is free from patent restrictions, has a great public domain decoder implementation included in this source tree, and best of all, is technically superior to MP3 in almost every way.
