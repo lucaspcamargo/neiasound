@@ -28,7 +28,7 @@
 #include "sndfile.h"
 #include <cstdio>
 #include <QDataStream>
-#include "../nSoundBag.h"
+#include "../nsoundbag.h"
 
 // SF_VIRTUAL_IO handler functions
 

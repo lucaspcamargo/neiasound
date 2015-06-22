@@ -28,7 +28,7 @@
 
 #include "neiasound_global.h"
 #include <QObject>
-#include "nSoundFormat.h"
+#include "nsoundformat.h"
 
 class nSoundSystem;
 class nSoundBag;

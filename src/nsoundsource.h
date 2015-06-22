@@ -27,9 +27,9 @@
 #define NSOUNDSOURCE_H
 
 #include "neiasound_global.h"
+#include "nsoundenums.h"
 #include <QObject>
 #include <QVector3D>
-#include "nSoundSourceRole.h"
 
 class nSoundSystem;
 class nSoundBuffer;

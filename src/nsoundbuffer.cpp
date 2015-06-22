@@ -23,10 +23,10 @@
 // ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
 // THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-#include "nSoundBuffer.h"
-#include "nSoundSystem.h"
-#include "nSoundBag.h"
-#include "nSoundStream.h"
+#include "nsoundbuffer.h"
+#include "nsoundsystem.h"
+#include "nsoundbag.h"
+#include "nsoundstream.h"
 #include "neiasound_al.h"
 
 nSoundBuffer::nSoundBuffer(QString name, nSoundSystem * parent) :

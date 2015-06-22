@@ -36,33 +36,33 @@ DEFINES += NEIASOUND_LIBRARY
 CONFIG += NEIASOUND_USE_STB_VORBIS NEIASOUND_USE_WAVE_STREAM NEIASOUND_USE_SNDFILE
 
 SOURCES += \
-    src/nSoundBag.cpp \
-    src/nSoundBuffer.cpp \
-    src/nSoundEffectParameters.cpp \
-    src/nSoundListener.cpp \
-    src/nSoundSource.cpp \
-    src/nSoundStream.cpp \
-    src/nSoundStreamer.cpp \
-    src/nSoundStreamerPlaylist.cpp \
-    src/nSoundSystem.cpp \
-    src/util/nEfxHelper.cpp \
+    src/nsoundbag.cpp \
+    src/nsoundbuffer.cpp \
+    src/nsoundeffectparameters.cpp \
+    src/nsoundlistener.cpp \
+    src/nsoundsource.cpp \
+    src/nsoundstream.cpp \
+    src/nsoundstreamer.cpp \
+    src/nsoundstreamerplaylist.cpp \
+    src/nsoundsystem.cpp \
+    src/util/nefxhelper.cpp \
     src/nsoundfilter.cpp
 
 HEADERS += \
     src/neiasound_global.h \
-    src/nSoundBag.h \
-    src/nSoundBuffer.h \
-    src/nSoundEffectParameters.h \
-    src/nSoundFormat.h \
-    src/nSoundListener.h \
-    src/nSoundSource.h \
-    src/nSoundSourceRole.h \
-    src/nSoundStream.h \
-    src/nSoundStreamer.h \
-    src/nSoundStreamerPlaylist.h \
-    src/nSoundSystem.h \
+    src/nsoundbag.h \
+    src/nsoundbuffer.h \
+    src/nsoundeffectparameters.h \
+    src/nsoundformat.h \
+    src/nsoundlistener.h \
+    src/nsoundsource.h \
+    src/nsoundsourceRole.h \
+    src/nsoundstream.h \
+    src/nsoundstreamer.h \
+    src/nsoundstreamerplaylist.h \
+    src/nsoundsystem.h \
     src/util/efx-util.h \
-    src/util/nEfxHelper.h \
+    src/util/nefxHelper.h \
     src/nsoundfilter.h \
     src/neiasound_al.h \
     src/nsoundenums.h

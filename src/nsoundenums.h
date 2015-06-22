@@ -4,8 +4,8 @@
 #include "neiasound_global.h"
 
 // defined separately
-#include "nSoundFormat.h"
-#include "nSoundSourceRole.h"
+#include "nsoundformat.h"
+#include "nsoundsourcerole.h"
 
 enum NEIASOUNDSHARED_EXPORT nSoundFilterType {
     SFT_NULL =       0x00,

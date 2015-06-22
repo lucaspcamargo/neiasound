@@ -1,5 +1,5 @@
 #include "nsoundfilter.h"
-#include "util/nEfxHelper.h"
+#include "util/nefxhelper.h"
 #include <QVector3D>
 
 nSoundFilter::PropertyMap nSoundFilter::ms_propertyMap;

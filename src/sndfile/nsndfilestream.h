@@ -27,8 +27,8 @@
 #ifndef NSNDFILESTREAM_H
 #define NSNDFILESTREAM_H
 
-#include "../nSoundStream.h"
-#include "../nSoundFormat.h"
+#include "../nsoundstream.h"
+#include "../nsoundenums.h"
 
 class QIODevice;
 class nSoundBag;
