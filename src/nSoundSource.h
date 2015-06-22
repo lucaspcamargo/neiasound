@@ -33,7 +33,7 @@
 
 class nSoundSystem;
 class nSoundBuffer;
-
+class nSoundFilter;
 
 class NEIASOUNDSHARED_EXPORT nSoundSource : public QObject
 {

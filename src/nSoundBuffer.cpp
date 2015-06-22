@@ -27,7 +27,7 @@
 #include "nSoundSystem.h"
 #include "nSoundBag.h"
 #include "nSoundStream.h"
-#include "AL/al.h"
+#include "neiasound_al.h"
 
 nSoundBuffer::nSoundBuffer(QString name, nSoundSystem * parent) :
     QObject(parent)

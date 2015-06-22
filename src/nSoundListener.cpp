@@ -25,61 +25,19 @@
 // THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "nSoundListener.h"
 #include "nSoundSystem.h"
-#ifdef NEIA
-#include "../scene/nSceneCamera.h"
-#include "OgreCamera.h"
-#endif
 
-#include "AL/al.h"
+#include "neiasound_al.h"
 
 nSoundListener::nSoundListener(nSoundSystem * parent) :
     QObject(parent)
 {
-#ifdef NEIA
-    m_camera = 0;
-#endif
     m_updating = true;
 }
 
-#ifdef NEIA
-void nSoundListener::setSourceCamera(nSceneCamera * cam)
-{
-    if(m_camera)
-    {
-        disconnect(this, SLOT(cameraDestroyed()));
-    }
-    m_camera = cam;
-    if(m_camera) //camera can be set to null
-    {
-        m_camLastPos = m_camera->ogreCamera()->getPosition();
-        connect(m_camera, SIGNAL(destroyed()), SLOT(cameraDestroyed()));
-    }
-}
-void nSoundListener::cameraDestroyed()
-{
-    disconnect(this, SLOT(cameraDestroyed()));
-    m_camera = 0;
-}
-#endif
 
 void nSoundListener::update(qreal frameTime)
 {
     Q_UNUSED(frameTime)
-
-#ifdef NEIA
-    if(m_updating && m_camera)
-    {
-        nVec3 pos(m_camera->ogreCamera()->getRealPosition()),
-                dir(m_camera->ogreCamera()->getRealDirection()),
-                up(m_camera->ogreCamera()->getRealUp());
-        nVec3 vel = pos - m_camLastPos;
-        m_camLastPos = pos;
-        vel/=frameTime;
-
-
-        updateManual(QVector3D());
-    }
-#endif
 
 }
 
