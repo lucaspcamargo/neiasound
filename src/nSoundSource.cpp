@@ -229,6 +229,9 @@ void nSoundSource::attachBuffer(nSoundBuffer * buffer)
 void nSoundSource::attachDirectFilter(nSoundFilter *filter)
 {
     alSourcei(m_handle, AL_DIRECT_FILTER, filter? filter->openalHandle() : AL_FILTER_NULL);
+    ALenum err = alGetError();
+    if(err!=AL_NO_ERROR)
+        qWarning("nSoundSource: failed to attach effec to source direct path");
 }
 
 void nSoundSource::detachDirectFilter()

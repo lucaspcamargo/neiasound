@@ -1,5 +1,5 @@
 <RCC>
     <qresource prefix="/">
-        <file>../common/wind.wav</file>
+        <file>wind.wav</file>
     </qresource>
 </RCC>
