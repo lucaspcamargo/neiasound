@@ -28,12 +28,17 @@ int main(int argc, char *argv[])
     qDebug() << "Creating stream";
     nSoundStream * stream = new nWaveStream(&file, SF_WAVE_HEADER, -1, -1, &system);
 
+
+    qDebug() << "Creating buffer";
     nSoundBuffer * buf = system.createBuffer("buffer");
     buf->setData(stream);
 
+    qDebug() << "Creating source";
     nSoundSource * src = system.createSource("source");
     src->attachBuffer(buf);
 
+
+    qDebug() << "Playback";
     src->setLoop(true);
     src->play();
 

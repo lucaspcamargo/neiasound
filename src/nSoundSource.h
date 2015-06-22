@@ -99,6 +99,8 @@ public slots:
     bool update(qreal frameTime);
 
     void attachBuffer(nSoundBuffer * buffer);
+    void attachDirectFilter(nSoundFilter * filter);
+    void detachDirectFilter();
 
     void setGain(qreal);
     void setPitch(qreal);

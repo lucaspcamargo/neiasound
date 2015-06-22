@@ -45,7 +45,8 @@ SOURCES += \
     src/nSoundStreamer.cpp \
     src/nSoundStreamerPlaylist.cpp \
     src/nSoundSystem.cpp \
-    src/util/nEfxHelper.cpp
+    src/util/nEfxHelper.cpp \
+    src/nsoundfilter.cpp
 
 HEADERS += \
     src/neiasound_global.h \
@@ -61,7 +62,10 @@ HEADERS += \
     src/nSoundStreamerPlaylist.h \
     src/nSoundSystem.h \
     src/util/efx-util.h \
-    src/util/nEfxHelper.h
+    src/util/nEfxHelper.h \
+    src/nsoundfilter.h \
+    src/neiasound_al.h \
+    src/nsoundenums.h
 
 unix: CONFIG += link_pkgconfig
 
@@ -104,7 +108,3 @@ unix {
     QMAKE_PKGCONFIG_INCDIR = $$INSTALL_PREFIX
     QMAKE_PKGCONFIG_VERSION = $$VERSION
 }
-
-DISTFILES += \
-    examples/use_neiasound.pri \
-    headerinstall.pri

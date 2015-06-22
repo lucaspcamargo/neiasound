@@ -26,12 +26,11 @@
 #ifndef NSOUNDSYSTEM_H
 #define NSOUNDSYSTEM_H
 
-#include "neiasound_global.h"
 #include <QObject>
 #include <QHash>
-#include "nSoundSourceRole.h"
-#include "nSoundFormat.h"
 
+#include "neiasound_global.h"
+#include "nsoundenums.h"
 
 #ifdef ANDROID
 #define NEIASOUND_FREQ 22050
@@ -50,17 +49,19 @@ class nSoundBuffer;
 class nSoundListener;
 class nSoundStreamer;
 class nSoundStreamerPlaylist;
+class nSoundFilter;
 
 class NEIASOUNDSHARED_EXPORT nSoundSystem : public QObject
 {
     Q_OBJECT
+    Q_ENUMS(nSoundFormat)
+    Q_ENUMS(nSoundSourceRole)
+
     Q_PROPERTY(int supportedAuxiliarySends READ supportedAuxiliarySends)
     Q_PROPERTY(qreal masterGain READ masterGain WRITE setMasterGain NOTIFY masterGainChanged)
     Q_PROPERTY(nSoundListener * listener READ listener)
     Q_PROPERTY(ALCcontext * openalContext READ openalContext)
     Q_PROPERTY(ALCdevice * openalDevice READ openalDevice)
-    Q_ENUMS(nSoundFormat)
-    Q_ENUMS(nSoundSourceRole)
 public:
     explicit nSoundSystem(QObject *parent = 0);
     virtual ~nSoundSystem();
@@ -89,7 +90,7 @@ public slots:
     bool destroySource(QString name);
     bool destroySource(nSoundSource * source);
 
-    nSoundBuffer * createBuffer(QString name);
+    nSoundBuffer * createBuffer(QString name = "");
     nSoundBuffer * buffer(QString name);
     bool destroyBuffer(QString name);
     bool destroyBuffer(nSoundBuffer * buffer);
@@ -101,10 +102,16 @@ public slots:
     bool destroyStreamer(QString name);
     bool destroyStreamer(nSoundStreamer * streamer);
 
+    nSoundFilter * createFilter(QString name = "", nSoundFilterType type = SFT_LOWPASS);
+    nSoundFilter * filter(QString name);
+    bool destroyFilter(QString name);
+    bool destroyFilter(nSoundFilter * Filter);
+
 private:
     QHash<QString, nSoundSource*> m_sources;
     QHash<QString, nSoundBuffer*> m_buffers;
     QHash<QString, nSoundStreamer*> m_streamers;
+    QHash<QString, nSoundFilter*> m_filters;
 
     nSoundListener * m_listener;
 

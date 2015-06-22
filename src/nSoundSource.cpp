@@ -26,8 +26,9 @@
 #include "nSoundSource.h"
 #include "nSoundSystem.h"
 #include "nSoundBuffer.h"
+#include "nsoundfilter.h"
 
-#include "AL/al.h"
+#include "neiasound_al.h"
 
 
 nSoundSource::nSoundSource(QString name, nSoundSourceRole role, nSoundSystem * parent) :
@@ -223,6 +224,16 @@ void nSoundSource::attachBuffer(nSoundBuffer * buffer)
     ALenum err = alGetError();
     if(err!=AL_NO_ERROR)
         qWarning("nSoundSource: failed to bind buffer to source");
+}
+
+void nSoundSource::attachDirectFilter(nSoundFilter *filter)
+{
+    alSourcei(m_handle, AL_DIRECT_FILTER, filter? filter->openalHandle() : AL_FILTER_NULL);
+}
+
+void nSoundSource::detachDirectFilter()
+{
+    attachDirectFilter(0);
 }
 
 void nSoundSource::play()
