@@ -3,14 +3,14 @@
 #include <QFile>
 #include <QVariantMap>
 
-#include <neiasound/nSoundSystem.h>
-#include <neiasound/nSoundStream.h>
-#include <neiasound/nSoundSource.h>
-#include <neiasound/nSoundBuffer.h>
+#include <neiasound/nsoundsystem.h>
+#include <neiasound/nsoundstream.h>
+#include <neiasound/nsoundsource.h>
+#include <neiasound/nsoundbuffer.h>
 #include <neiasound/nsoundfilter.h>
 
 #include <neiasound/wav/nwavestream.h>
-#include <neiasound/nSoundFormat.h>
+#include <neiasound/nsoundformat.h>
 
 int main(int argc, char *argv[])
 {
@@ -44,8 +44,7 @@ int main(int argc, char *argv[])
 
     // you can set a map of properties
     QVariantMap filterProperties;
-    filterProperties.insert("gain", 0.5);
-    filterProperties.insert("gainhf", 0.3);
+    filterProperties.insert("gain", 0.8);
     filter->setProperties(filterProperties);
     src->attachDirectFilter(filter);
 
