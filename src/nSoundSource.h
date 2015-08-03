@@ -41,7 +41,7 @@ class NEIASOUNDSHARED_EXPORT nSoundSource : public QObject
     Q_ENUMS(nSoundSourceState)
     Q_ENUMS(nSoundSourceRole)
 
-    Q_PROPERTY(unsigned int openalHandle READ openalHandle)
+    Q_PROPERTY(unsigned int openalHandle READ openalHandle CONSTANT)
     Q_PROPERTY(nSoundSourceRole role READ role)
     Q_PROPERTY(nSoundSourceState state READ state)
     Q_PROPERTY(qreal gain READ gain WRITE setGain)
