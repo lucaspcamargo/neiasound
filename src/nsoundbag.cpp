@@ -23,42 +23,19 @@
 // ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
 // THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-#include "nSoundStreamerPlaylist.h"
+#include "nsoundbag.h"
 
-nSoundStreamerPlaylist::nSoundStreamerPlaylist(QObject *parent) :
-    QObject(parent),
-    m_loopPlaylist(false),
-    m_items(QList<nSoundStreamerItem>())
+nSoundBag::nSoundBag(nSoundFormat format, quint64 frames, int freq, QObject * parent):
+    QObject(parent)
 {
+    m_frames = frames;
+    m_data_size = nSoundFormat_getFramesize(format)*frames;
+    m_data = new unsigned char[m_data_size];
+    m_frequency = freq;
+    m_format = format;
 }
 
-nSoundStreamerPlaylist::~nSoundStreamerPlaylist()
+nSoundBag::~nSoundBag()
 {
-}
-
-void nSoundStreamerPlaylist::createItem(nSoundStream * stream, bool loop)
-{
-    qDebug("Item");
-
-    if(!stream)
-    {
-        qWarning("Attempted to create nSoundStreamerPlaylist item with null stream pointer.");
-        return;
-    }
-
-    nSoundStreamerItem item;
-    item.m_soundStream = stream;
-    item.m_loop = loop;
-    m_items.append(item);
-
-}
-
-nSoundStreamerItem nSoundStreamerPlaylist::item(int index)
-{
-    return m_items[index];
-}
-
-void nSoundStreamerPlaylist::clearItems()
-{
-    m_items.clear();
+    delete[] m_data;
 }

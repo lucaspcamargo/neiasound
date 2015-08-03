@@ -23,41 +23,18 @@
 // ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
 // THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-#ifndef NSOUNDSTREAM_H
-#define NSOUNDSTREAM_H
+#include "nsoundstream.h"
+#include "nsoundbag.h"
 
-
-#include "neiasound_global.h"
-#include <QObject>
-#include "nSoundFormat.h"
-
-class nSoundBag;
-
-class NEIASOUNDSHARED_EXPORT nSoundStream : public QObject
+nSoundStream::nSoundStream(QObject *parent) :
+    QObject(parent)
 {
-    Q_OBJECT
-    Q_PROPERTY(int channels READ channels)
-    Q_PROPERTY(quint64 frames READ frames)
-    Q_PROPERTY(int frequency READ frequency)
-    Q_PROPERTY(nSoundFormat format READ format)
-    Q_PROPERTY(bool suggestStreaming READ suggestStreaming)
-public:
-    explicit nSoundStream(QObject *parent = 0);
+}
 
-    virtual quint64 frames()=0;
-    virtual int channels()=0;
-    virtual int frequency()=0;
-
-    virtual nSoundBag * createSoundBag(QObject * parent = 0);
-    virtual nSoundFormat format() = 0;
-    virtual bool suggestStreaming() = 0;
-
-    virtual void rewind() = 0;
-    virtual quint64 read(void* data, unsigned long frames) = 0;
-signals:
-
-public slots:
-
-};
-
-#endif // NSOUNDSTREAM_H
+nSoundBag *nSoundStream::createSoundBag(QObject *parent)
+{
+    Q_UNUSED(parent)
+    nSoundBag * bag = new nSoundBag( format(), frames(), frequency() );
+    read(bag->m_data, frames());
+    return bag;
+}

@@ -23,50 +23,34 @@
 // ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
 // THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+#ifndef NSOUNDBAG_H
+#define NSOUNDBAG_H
 
-#ifndef NSNDFILESTREAM_H
-#define NSNDFILESTREAM_H
+#include "neiasound_global.h"
+#include <QObject>
+#include "nsoundformat.h"
 
-#include "../nsoundstream.h"
-#include "../nsoundenums.h"
 
-class QIODevice;
-class nSoundBag;
-
-class nSndfileStream : public nSoundStream
+class NEIASOUNDSHARED_EXPORT nSoundBag : public QObject
 {
     Q_OBJECT
+    Q_ENUMS(nSoundFormat)
 public:
-    nSndfileStream(QString filename, QObject * parent = 0);
-    nSndfileStream(QIODevice * stream, QObject * parent = 0, bool ownsDevice = true);
-    virtual ~nSndfileStream();
+    nSoundBag(nSoundFormat format, quint64 frames, int frequency, QObject * parent = 0);
+    virtual ~nSoundBag();
 
-    quint64 frames(){return m_info_frames;}
-    int channels(){return m_info_channels;}
-    int frequency(){return m_info_samplerate;}
+    quint64 m_frames;
+    uchar * m_data;
+    quint64 m_data_size;
+    int m_frequency;
+    nSoundFormat m_format;
 
-    nSoundBag * createSoundBag(QObject * parent = 0);
+signals:
 
-    nSoundFormat format();
-    bool suggestStreaming();
-
-    void rewind();
-    quint64 read(void* data, unsigned long frames);
+public slots:
 
 private:
-    void fillInfo();
 
-    QIODevice * m_iodevice;
-    bool m_ownsDevice;
-    void * m_virtualio;
-
-    void * m_sndfile;
-    void * m_sndinfo;
-
-    int m_info_format;
-    quint64 m_info_frames;
-    int m_info_samplerate;
-    int m_info_channels;
 };
 
-#endif // NSNDFILESTREAM_H
+#endif // NSOUNDBAG_H

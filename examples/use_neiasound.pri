@@ -1,0 +1,2 @@
+
+LIBS += -lneiasound -lopenal

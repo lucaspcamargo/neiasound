@@ -23,18 +23,38 @@
 // ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
 // THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-#include "nSoundStream.h"
-#include "nSoundBag.h"
+#ifndef NSOUNDBUFFER_H
+#define NSOUNDBUFFER_H
 
-nSoundStream::nSoundStream(QObject *parent) :
-    QObject(parent)
-{
-}
+#include "neiasound_global.h"
+#include <QObject>
+#include "nsoundformat.h"
 
-nSoundBag *nSoundStream::createSoundBag(QObject *parent)
+class nSoundSystem;
+class nSoundBag;
+class nSoundStream;
+
+class NEIASOUNDSHARED_EXPORT nSoundBuffer : public QObject
 {
-    Q_UNUSED(parent)
-    nSoundBag * bag = new nSoundBag( format(), frames(), frequency() );
-    read(bag->m_data, frames());
-    return bag;
-}
+    Q_OBJECT
+    Q_PROPERTY(unsigned int openalHandle READ openalHandle)
+public:
+    explicit nSoundBuffer(QString name, nSoundSystem * parent);
+    virtual ~nSoundBuffer();
+
+    unsigned int openalHandle(){return m_handle;}
+
+    void setData(nSoundBag * bag);
+    void setData(nSoundStream * stream);
+
+    int openalFormat(nSoundFormat format);
+
+signals:
+
+public slots:
+
+private:
+    unsigned int m_handle;
+};
+
+#endif // NSOUNDBUFFER_H

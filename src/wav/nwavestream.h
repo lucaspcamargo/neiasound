@@ -28,7 +28,7 @@
 #define DWSOUNDRAWSTREAM_H
 
 #include "../neiasound_global.h"
-#include "../nSoundStream.h"
+#include "../nsoundstream.h"
 
 class QIODevice;
 

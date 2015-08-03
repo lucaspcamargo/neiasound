@@ -27,13 +27,13 @@
 #define NSOUNDSOURCE_H
 
 #include "neiasound_global.h"
+#include "nsoundenums.h"
 #include <QObject>
 #include <QVector3D>
-#include "nSoundSourceRole.h"
 
 class nSoundSystem;
 class nSoundBuffer;
-
+class nSoundFilter;
 
 class NEIASOUNDSHARED_EXPORT nSoundSource : public QObject
 {
@@ -99,6 +99,8 @@ public slots:
     bool update(qreal frameTime);
 
     void attachBuffer(nSoundBuffer * buffer);
+    void attachDirectFilter(nSoundFilter * filter);
+    void detachDirectFilter();
 
     void setGain(qreal);
     void setPitch(qreal);

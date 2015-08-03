@@ -27,7 +27,7 @@
 #include "nvorbisstream.h"
 
 #include <QIODevice>
-#include "../nSoundBag.h"
+#include "../nsoundbag.h"
 
 
 #define STB_VORBIS_MAX_CHANNELS     2

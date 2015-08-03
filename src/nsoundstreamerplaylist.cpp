@@ -23,38 +23,43 @@
 // ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
 // THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-#ifndef NSOUNDBUFFER_H
-#define NSOUNDBUFFER_H
 
-#include "neiasound_global.h"
-#include <QObject>
-#include "nSoundFormat.h"
+#include "nsoundstreamerplaylist.h"
 
-class nSoundSystem;
-class nSoundBag;
-class nSoundStream;
-
-class NEIASOUNDSHARED_EXPORT nSoundBuffer : public QObject
+nSoundStreamerPlaylist::nSoundStreamerPlaylist(QObject *parent) :
+    QObject(parent),
+    m_loopPlaylist(false),
+    m_items(QList<nSoundStreamerItem>())
 {
-    Q_OBJECT
-    Q_PROPERTY(unsigned int openalHandle READ openalHandle)
-public:
-    explicit nSoundBuffer(QString name, nSoundSystem * parent);
-    virtual ~nSoundBuffer();
+}
 
-    unsigned int openalHandle(){return m_handle;}
+nSoundStreamerPlaylist::~nSoundStreamerPlaylist()
+{
+}
 
-    void setData(nSoundBag * bag);
-    void setData(nSoundStream * stream);
+void nSoundStreamerPlaylist::createItem(nSoundStream * stream, bool loop)
+{
+    qDebug("Item");
 
-    int openalFormat(nSoundFormat format);
+    if(!stream)
+    {
+        qWarning("Attempted to create nSoundStreamerPlaylist item with null stream pointer.");
+        return;
+    }
 
-signals:
+    nSoundStreamerItem item;
+    item.m_soundStream = stream;
+    item.m_loop = loop;
+    m_items.append(item);
 
-public slots:
+}
 
-private:
-    unsigned int m_handle;
-};
+nSoundStreamerItem nSoundStreamerPlaylist::item(int index)
+{
+    return m_items[index];
+}
 
-#endif // NSOUNDBUFFER_H
+void nSoundStreamerPlaylist::clearItems()
+{
+    m_items.clear();
+}

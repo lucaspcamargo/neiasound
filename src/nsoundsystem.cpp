@@ -23,19 +23,17 @@
 // ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
 // THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-#include "nSoundSystem.h"
-#include "nSoundSource.h"
-#include "nSoundBuffer.h"
-#include "nSoundListener.h"
-#include "nSoundStreamer.h"
-#include "nSoundStreamerPlaylist.h"
+#include "nsoundsystem.h"
+#include "nsoundsource.h"
+#include "nsoundbuffer.h"
+#include "nsoundlistener.h"
+#include "nsoundstreamer.h"
+#include "nsoundstreamerplaylist.h"
+#include "nsoundfilter.h"
 
-#include <AL/al.h>
-#include <AL/alc.h>
-#include <AL/alext.h>
-#include <AL/efx.h>
+#include "neiasound_al.h"
 
-#include "util/nEfxHelper.h"
+#include "util/nefxhelper.h"
 #include <QSettings>
 #include <QUuid>
 #include <QDebug>
@@ -167,7 +165,7 @@ nSoundSource * nSoundSystem::createSource(QString name, nSoundSourceRole role)
 {
     if(name.isEmpty())
     {
-        name = QString("nSoundSource_%1").arg(QUuid::createUuid().toString());
+        name = QStringLiteral("nSoundSource_%1").arg(QUuid::createUuid().toString());
     }
 
     nSoundSource * src;
@@ -209,7 +207,10 @@ bool nSoundSystem::destroySource(nSoundSource * source)
 
 nSoundBuffer * nSoundSystem::createBuffer(QString name)
 {
-    if(name.isEmpty()) qWarning("Creating nSoundBuffer with empty name.");
+    if(name.isEmpty())
+    {
+        name = QStringLiteral("nSoundBuffer_%1").arg(QUuid::createUuid().toString());
+    }
 
     nSoundBuffer * buf = new nSoundBuffer(name, this);
     m_buffers.insert(name, buf);
@@ -244,7 +245,10 @@ bool nSoundSystem::destroyBuffer(nSoundBuffer * buffer)
 
 nSoundStreamer * nSoundSystem::createStreamer(QString name, nSoundSource * source, nSoundStreamerPlaylist * playlist)
 {
-    if(name.isEmpty()) qWarning("Creating nSoundStreamer with an empty name.");
+    if(name.isEmpty())
+    {
+        name = QStringLiteral("nSoundStreamer_%1").arg(QUuid::createUuid().toString());
+    }
 
     nSoundStreamer * streamer = new nSoundStreamer(name, source, playlist, this);
     playlist->setParent(streamer);
@@ -279,3 +283,44 @@ bool nSoundSystem::destroyStreamer(nSoundStreamer * streamer)
     delete strm;
     return true;
 }
+
+
+// FILTER METHODS
+
+nSoundFilter * nSoundSystem::createFilter(QString name, nSoundFilterType type)
+{
+    if(name.isEmpty())
+    {
+        name = QStringLiteral("nSoundFilter_%1").arg(QUuid::createUuid().toString());
+    }
+
+    nSoundFilter * src;
+    try{
+        src = new nSoundFilter(name, type, this);
+        m_filters.insert(name, src);
+        return src;
+    }catch(...)
+    {
+        return 0;
+    }
+}
+
+nSoundFilter * nSoundSystem::filter(QString name)
+{
+    return m_filters.value(name, 0);
+}
+
+bool nSoundSystem::destroyFilter(QString name)
+{
+    nSoundFilter * filter = m_filters.value(name, 0);
+    if(!filter) return false;
+    m_filters.remove(name);
+    delete filter;
+    return true;
+}
+
+bool nSoundSystem::destroyFilter(nSoundFilter * filter)
+{
+    return destroyFilter(filter->objectName());
+}
+

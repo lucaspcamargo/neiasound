@@ -23,16 +23,16 @@
 // ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
 // THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-#include "nSoundStreamer.h"
-#include "nSoundSystem.h"
-#include "nSoundSource.h"
-#include "nSoundBag.h"
-#include "nSoundStream.h"
-#include "nSoundStreamerPlaylist.h"
-#include "AL/al.h"
+#include "nsoundstreamer.h"
+#include "nsoundsystem.h"
+#include "nsoundsource.h"
+#include "nsoundbag.h"
+#include "nsoundstream.h"
+#include "nsoundstreamerplaylist.h"
+#include "neiasound_al.h"
 
 
-const int nSS_BUFFER_SIZE = 4096;
+const int NSS_BUFFER_SIZE = 8192;
 
 nSoundStreamer::nSoundStreamer(QString name, nSoundSource * source, nSoundStreamerPlaylist * playlist, nSoundSystem * parent) :
     QObject(parent)
@@ -68,7 +68,7 @@ nSoundStreamer::nSoundStreamer(QString name, nSoundSource * source, nSoundStream
     m_currentStream = 0;
     nSoundStream * stream = m_playlist->m_items[m_currentStream].m_soundStream;
     m_bag = new nSoundBag(stream->format(),
-        (stream->frames() < nSS_BUFFER_SIZE? stream->frames() : nSS_BUFFER_SIZE),
+        (stream->frames() < NSS_BUFFER_SIZE? stream->frames() : NSS_BUFFER_SIZE),
         stream->frequency(), this);
 
     //fill in initial data and queue buffers
@@ -242,7 +242,7 @@ nSoundStreamerUpdater::nSoundStreamerUpdater(nSoundStreamer *parent) : QObject(0
     _streamer(parent),
     _keepGoing(true)
 {
-    startTimer(static_cast<int>(nSS_BUFFER_SIZE / 44100.0 * 1000));
+    startTimer(static_cast<int>(NSS_BUFFER_SIZE / 44100.0 * 1000));
 }
 
 nSoundStreamerUpdater::~nSoundStreamerUpdater()

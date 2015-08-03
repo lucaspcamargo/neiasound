@@ -23,11 +23,12 @@
 // ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
 // THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-#include "nSoundSource.h"
-#include "nSoundSystem.h"
-#include "nSoundBuffer.h"
+#include "nsoundsource.h"
+#include "nsoundsystem.h"
+#include "nsoundbuffer.h"
+#include "nsoundfilter.h"
 
-#include "AL/al.h"
+#include "neiasound_al.h"
 
 
 nSoundSource::nSoundSource(QString name, nSoundSourceRole role, nSoundSystem * parent) :
@@ -223,6 +224,19 @@ void nSoundSource::attachBuffer(nSoundBuffer * buffer)
     ALenum err = alGetError();
     if(err!=AL_NO_ERROR)
         qWarning("nSoundSource: failed to bind buffer to source");
+}
+
+void nSoundSource::attachDirectFilter(nSoundFilter *filter)
+{
+    alSourcei(m_handle, AL_DIRECT_FILTER, filter? filter->openalHandle() : AL_FILTER_NULL);
+    ALenum err = alGetError();
+    if(err!=AL_NO_ERROR)
+        qWarning("nSoundSource: failed to attach effec to source direct path");
+}
+
+void nSoundSource::detachDirectFilter()
+{
+    attachDirectFilter(0);
 }
 
 void nSoundSource::play()

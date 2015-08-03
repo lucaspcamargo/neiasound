@@ -23,49 +23,39 @@
 // ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
 // THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-#ifndef NSOUNDLISTENER_H
-#define NSOUNDLISTENER_H
+#include "nsoundlistener.h"
+#include "nsoundsystem.h"
 
-#include "neiasound_global.h"
-#include <QObject>
-#include <QVector3D>
+#include "neiasound_al.h"
 
-class nSceneCamera;
-class nSoundSystem;
-
-class NEIASOUNDSHARED_EXPORT nSoundListener : public QObject
+nSoundListener::nSoundListener(nSoundSystem * parent) :
+    QObject(parent)
 {
-    Q_OBJECT
-#ifdef NEIA
-    Q_PROPERTY(nSceneCamera * sourceCamera READ sourceCamera WRITE setSourceCamera)
-#endif
-    Q_PROPERTY(bool updating READ isUpdating WRITE setUpdating)
-public:
-    explicit nSoundListener(nSoundSystem * parent);
+    m_updating = true;
+}
 
-#ifdef NEIA
-    nSceneCamera * sourceCamera(){return m_camera;}
-    void setSourceCamera(nSceneCamera * cam);
-#endif
 
-    bool isUpdating(){return m_updating;}
-    void setUpdating(bool b){m_updating = b;}
+void nSoundListener::update(qreal frameTime)
+{
+    Q_UNUSED(frameTime)
 
-signals:
+}
 
-public slots:
-#ifdef NEIA
-    void cameraDestroyed();
-#endif
-    void update(qreal frameTime);
-    void updateManual(QVector3D position, QVector3D direction, QVector3D up, QVector3D velocity);
+void nSoundListener::updateManual(QVector3D pos, QVector3D dir, QVector3D up, QVector3D vel)
+{
+    float orient[6];
+    orient[0] = dir[0];
+    orient[1] = dir[1];
+    orient[2] = dir[2];
+    orient[3] = up[0];
+    orient[4] = up[1];
+    orient[5] = up[2];
 
-private:
-#ifdef NEIA
-    nSceneCamera * m_camera;
-    nVec3 m_camLastPos;
-#endif
-    bool m_updating;
-};
+    alGetError();
+    alListener3f(AL_POSITION, pos[0], pos[1], pos[2]);
+    alListenerfv(AL_ORIENTATION, orient);
+    alListener3f(AL_VELOCITY, vel[0], vel[1], vel[2]);
 
-#endif // NSOUNDLISTENER_H
+    if(alGetError()!=AL_NO_ERROR)
+        qWarning("nSoundListener: Failed to update listener transformations.");
+}

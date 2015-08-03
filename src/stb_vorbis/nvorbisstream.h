@@ -28,7 +28,7 @@
 #ifndef NVORBISSTREAM_H
 #define NVORBISSTREAM_H
 
-#include "../nSoundStream.h"
+#include "../nsoundstream.h"
 
 class QIODevice;
 class stb_vorbis;

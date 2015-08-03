@@ -23,21 +23,36 @@
 // ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
 // THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-#include "nSoundBag.h"
-#include <cstdio>
-#include <cstdlib>
+#ifndef NSOUNDLISTENER_H
+#define NSOUNDLISTENER_H
 
-nSoundBag::nSoundBag(nSoundFormat format, quint64 frames, int freq, QObject * parent):
-    QObject(parent)
-{
-    m_frames = frames;
-    m_data_size = nSoundFormat_getFramesize(format)*frames;
-    m_data = new unsigned char[m_data_size];
-    m_frequency = freq;
-    m_format = format;
-}
+#include "neiasound_global.h"
+#include <QObject>
+#include <QVector3D>
 
-nSoundBag::~nSoundBag()
+class nSceneCamera;
+class nSoundSystem;
+
+class NEIASOUNDSHARED_EXPORT nSoundListener : public QObject
 {
-    delete[] m_data;
-}
+    Q_OBJECT
+
+    Q_PROPERTY(bool updating READ isUpdating WRITE setUpdating)
+public:
+    explicit nSoundListener(nSoundSystem * parent);
+
+    bool isUpdating(){return m_updating;}
+    void setUpdating(bool b){m_updating = b;}
+
+signals:
+
+public slots:
+
+    void update(qreal frameTime);
+    void updateManual(QVector3D position, QVector3D direction, QVector3D up, QVector3D velocity);
+
+private:
+    bool m_updating;
+};
+
+#endif // NSOUNDLISTENER_H

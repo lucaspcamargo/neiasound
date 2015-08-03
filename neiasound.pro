@@ -30,37 +30,42 @@ QT += gui
 
 TARGET = neiasound
 TEMPLATE = lib
+VERSION = 0.1
 
 DEFINES += NEIASOUND_LIBRARY
 CONFIG += NEIASOUND_USE_STB_VORBIS NEIASOUND_USE_WAVE_STREAM NEIASOUND_USE_SNDFILE
 
 SOURCES += \
-    src/nSoundBag.cpp \
-    src/nSoundBuffer.cpp \
-    src/nSoundEffectParameters.cpp \
-    src/nSoundListener.cpp \
-    src/nSoundSource.cpp \
-    src/nSoundStream.cpp \
-    src/nSoundStreamer.cpp \
-    src/nSoundStreamerPlaylist.cpp \
-    src/nSoundSystem.cpp \
-    src/util/nEfxHelper.cpp
+    src/nsoundbag.cpp \
+    src/nsoundbuffer.cpp \
+    src/nsoundeffectparameters.cpp \
+    src/nsoundlistener.cpp \
+    src/nsoundsource.cpp \
+    src/nsoundstream.cpp \
+    src/nsoundstreamer.cpp \
+    src/nsoundstreamerplaylist.cpp \
+    src/nsoundsystem.cpp \
+    src/util/nefxhelper.cpp \
+    src/nsoundfilter.cpp
 
 HEADERS += \
     src/neiasound_global.h \
-    src/nSoundBag.h \
-    src/nSoundBuffer.h \
-    src/nSoundEffectParameters.h \
-    src/nSoundFormat.h \
-    src/nSoundListener.h \
-    src/nSoundSource.h \
-    src/nSoundSourceRole.h \
-    src/nSoundStream.h \
-    src/nSoundStreamer.h \
-    src/nSoundStreamerPlaylist.h \
-    src/nSoundSystem.h \
+    src/nsoundbag.h \
+    src/nsoundbuffer.h \
+    src/nsoundeffectparameters.h \
+    src/nsoundformat.h \
+    src/nsoundlistener.h \
+    src/nsoundsource.h \
+    src/nsoundsourceRole.h \
+    src/nsoundstream.h \
+    src/nsoundstreamer.h \
+    src/nsoundstreamerplaylist.h \
+    src/nsoundsystem.h \
     src/util/efx-util.h \
-    src/util/nEfxHelper.h
+    src/util/nefxHelper.h \
+    src/nsoundfilter.h \
+    src/neiasound_al.h \
+    src/nsoundenums.h
 
 unix: CONFIG += link_pkgconfig
 
@@ -85,8 +90,21 @@ CONFIG(NEIASOUND_USE_SNDFILE) {
     }
 }
 
-unix {
-    target.path = /usr/local/lib
-    INSTALLS += target
-}
 
+unix {
+    target.path = /usr/lib
+    INSTALLS += target
+
+    INSTALL_PREFIX = /usr/include/neiasound
+    INSTALL_HEADERS = $$HEADERS
+    include(headerinstall.pri)
+
+    CONFIG += create_pc create_prl no_install_prl
+
+    QMAKE_PKGCONFIG_NAME = neiasound
+    QMAKE_PKGCONFIG_DESCRIPTION = Qt-like wrapper and utilities for OpenAL
+    QMAKE_PKGCONFIG_PREFIX = $$INSTALLBASE
+    QMAKE_PKGCONFIG_LIBDIR = $$target.path
+    QMAKE_PKGCONFIG_INCDIR = $$INSTALL_PREFIX
+    QMAKE_PKGCONFIG_VERSION = $$VERSION
+}

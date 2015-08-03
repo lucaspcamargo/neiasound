@@ -31,7 +31,7 @@
 #include <QThread>
 #include <QMutex>
 
-#include "nSoundFormat.h"
+#include "nsoundformat.h"
 
 class nSoundSystem;
 class nSoundSource;
