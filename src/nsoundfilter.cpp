@@ -62,8 +62,7 @@ void nSoundFilter::setProperty(const QString &name, const QVariant &value)
     ALenum error = alGetError();
     if(error!=AL_NO_ERROR)
     {
-        qWarning("nSoundFilter: setting property failed:");
-        qWarning(name.toLocal8Bit());
+        qWarning("nSoundFilter: setting property failed: %s", name.toLocal8Bit());
     }
 }
 
