@@ -72,6 +72,7 @@ nVorbisStream::nVorbisStream(QIODevice * dev, QObject *parent) : nSoundStream(pa
         if(!_vorbis || err != VORBIS__no_error)
         {
             qDebug("[nVorbisStream] Error initializing vorbis stream");
+            m_error = true;
         }
 
         //stb_vorbis_info info = stb_vorbis_get_info(_vorbis);
@@ -95,6 +96,7 @@ nVorbisStream::nVorbisStream(QIODevice * dev, QObject *parent) : nSoundStream(pa
     else
     {
         qDebug("[nVorbisStream] Error reading QIODevice");
+        m_error = true;
     }
 
 }

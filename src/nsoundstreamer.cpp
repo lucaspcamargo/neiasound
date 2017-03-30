@@ -205,11 +205,11 @@ bool nSoundStreamer::fillAndQueueBuffer(unsigned int buffer)
     alGetError();
     alBufferData(buffer, openalFormat(m_bag->m_format), m_bag->m_data, readFrames*byteFactor, m_bag->m_frequency);
     if(alGetError()!=AL_NO_ERROR)
-        qWarning("nSoundStreamer::fillAndQueueBuffer(...): Failed to refill buffer.");
+        qWarning("[nSoundStreamer] Failed to refill buffer.");
 
     alSourceQueueBuffers(m_source->openalHandle(), 1, &buffer);
     if(alGetError()!=AL_NO_ERROR)
-        qWarning("nSoundStreamer::fillAndQueueBuffer(...): Failed to queue buffer.");
+        qWarning("[nSoundStreamer] Failed to queue buffer.");
 
     return keep;
 }

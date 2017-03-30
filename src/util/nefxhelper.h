@@ -27,9 +27,7 @@
 #define NEFXHELPER_H
 
 #include "../neiasound_global.h"
-#include "AL/al.h"
-#include "AL/alc.h"
-#include "AL/alext.h"
+#include "../neiasound_al.h"
 
 class NEIASOUNDSHARED_EXPORT nEfxHelper
 {

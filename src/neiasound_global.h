@@ -3,10 +3,16 @@
 
 #include <QtCore/qglobal.h>
 
+#ifdef NEIASOUND_STATIC
+#define NEIASOUNDSHARED_EXPORT
+#else
+
 #if defined(NEIASOUND_LIBRARY)
 #  define NEIASOUNDSHARED_EXPORT Q_DECL_EXPORT
 #else
 #  define NEIASOUNDSHARED_EXPORT Q_DECL_IMPORT
+#endif
+
 #endif
 
 #endif // NEIASOUND_GLOBAL_H
