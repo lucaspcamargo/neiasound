@@ -56,16 +56,16 @@ HEADERS += \
     src/nsoundformat.h \
     src/nsoundlistener.h \
     src/nsoundsource.h \
-    src/nsoundsourceRole.h \
+    src/nsoundsourcerole.h \
     src/nsoundstream.h \
     src/nsoundstreamer.h \
     src/nsoundstreamerplaylist.h \
     src/nsoundsystem.h \
     src/util/efx-util.h \
-    src/util/nefxHelper.h \
     src/nsoundfilter.h \
     src/neiasound_al.h \
     src/nsoundenums.h
+    #src/util/nefxHelper.h \
 
 unix: CONFIG += link_pkgconfig
 
