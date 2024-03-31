@@ -38,11 +38,8 @@
 #define NEIASOUND_FREQ 48000
 #endif
 
-// *sigh* ugly but necessary
-struct ALCcontext_struct;
-struct ALCdevice_struct;
-typedef struct ALCcontext_struct ALCcontext;
-typedef struct ALCdevice_struct ALCdevice;
+struct ALCcontext;
+struct ALCdevice;
 
 class nSoundSource;
 class nSoundBuffer;
